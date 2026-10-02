@@ -3,9 +3,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/style.css"></head><body>
 <div class="orbs" aria-hidden="true"><i></i><i></i><i></i></div>
-<div id="login" class="overlay"><form class="glass pane login" id="lf"><h1>Student Portal</h1><p id="auth-copy">Sign in to manage records.</p>
+<div id="login" class="overlay"><form class="glass pane login" id="lf"><h1>Student Portal</h1><p>Sign in to manage records.</p>
 <label>Username<input name="username" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label>
-<button class="btn" id="auth-submit">Sign in</button><button type="button" class="btn g" id="register-toggle">Create an account</button><p class="demo"><strong>Demo credentials</strong><br>Username: <code>admin</code><br>Password: <code>admin123</code></p></form></div>
+<button class="btn">Sign in</button><button type="button" class="link-btn" id="register-toggle">Create an account</button>
+<div class="demo"><strong>Demo credentials</strong><span>Username: <code>admin</code></span><span>Password: <code>admin123</code></span></div></form>
+<form class="glass pane login" id="rf" hidden><h1>Create account</h1><p>Register a new portal account.</p>
+<label>Username<input name="username" required minlength="3" maxlength="50" autocomplete="username"></label><label>Password<input name="password" type="password" required minlength="6" autocomplete="new-password"></label>
+<button class="btn">Register</button><button type="button" class="link-btn" id="login-toggle">Back to sign in</button></form></div>
 <div class="app" id="app" hidden><nav class="glass pane" aria-label="Main"><h2>Portal</h2>
 <button data-v="dash" class="on">Dashboard</button><button data-v="students">Students</button><button data-v="attendance">Attendance</button><button data-v="grades">Grades</button>
 <button id="out" class="out">Sign out</button></nav><main id="main" tabindex="-1"></main></div>

@@ -3,9 +3,11 @@ const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clea
 async function api(u,m='GET',b){const r=await fetch('/api/'+u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});
  const d=await r.json().catch(()=>({}));if(r.status==401&&u!='login'){showLogin();throw d}if(!r.ok){toast(d.error||'Something went wrong');throw d}return d}
 const showLogin=()=>{$('#login').hidden=false;$('#app').hidden=true};
-let registering=false;
-$('#register-toggle').onclick=()=>{registering=!registering;$('#auth-copy').textContent=registering?'Create an account to access the portal.':'Sign in to manage records.';$('#auth-submit').textContent=registering?'Register':'Sign in';$('#register-toggle').textContent=registering?'Back to sign in':'Create an account';$('#lf').reset()};
-$('#lf').onsubmit=async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target));try{if(registering){await api('register','POST',data);toast('Account created. You can sign in now.');$('#register-toggle').click()}else{await api('login','POST',data);$('#login').hidden=true;$('#app').hidden=false;go('dash')}}catch{}};
+const enterApp=()=>{$('#login').hidden=true;$('#app').hidden=false;go('dash')};
+$('#lf').onsubmit=async e=>{e.preventDefault();try{await api('login','POST',Object.fromEntries(new FormData(e.target)));enterApp()}catch{}};
+$('#rf').onsubmit=async e=>{e.preventDefault();try{await api('register','POST',Object.fromEntries(new FormData(e.target)));toast('Account created');enterApp()}catch{}};
+$('#register-toggle').onclick=()=>{$('#lf').hidden=true;$('#rf').hidden=false;$('#rf').elements.username.focus()};
+$('#login-toggle').onclick=()=>{$('#rf').hidden=true;$('#lf').hidden=false;$('#lf').elements.username.focus()};
 $('#out').onclick=async()=>{await api('logout','POST');showLogin()};
 document.querySelectorAll('nav [data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));
 document.addEventListener('pointermove',e=>{const c=e.target.closest?.('.glass');if(!c)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
