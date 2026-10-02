@@ -128,6 +128,4 @@ def stats():
         top=q("SELECT s.name,ROUND(AVG(g.marks/g.max_marks*100),1) pct FROM grades g JOIN students s ON s.id=g.student_id GROUP BY s.id ORDER BY pct DESC LIMIT 5"))
 
 if __name__ == "__main__":
-    if not q("SELECT id FROM users LIMIT 1", one=True):
-        q("INSERT INTO users(username,password_hash) VALUES(%s,%s)", ("admin", generate_password_hash("admin123")), write=True)
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "3000")), debug=True)
