@@ -1,0 +1,81 @@
+{
+  "name": "Student Information Portal",
+  "language": "en",
+  "font": "Manrope",
+  "authentication": {
+    "type": "username-password",
+    "loginTitle": "Student Portal",
+    "description": "Sign in to manage records."
+  },
+  "navigation": [
+    { "id": "dash", "label": "Dashboard" },
+    { "id": "students", "label": "Students" },
+    { "id": "attendance", "label": "Attendance" },
+    { "id": "grades", "label": "Grades" }
+  ],
+  "actions": {
+    "signOut": "Sign out",
+    "addStudent": "Add student",
+    "saveAttendance": "Save attendance",
+    "addGrade": "Add grade"
+  },
+  "pages": {
+    "dash": {
+      "title": "Dashboard",
+      "stats": [
+        "Students",
+        "Present today",
+        "Attendance rate",
+        "Average grade"
+      ],
+      "section": "Top performers",
+      "emptyState": "Add grades to see rankings."
+    },
+    "students": {
+      "title": "Students",
+      "searchPlaceholder": "Search name, roll, class",
+      "columns": ["Roll", "Name", "Class", "Email", "Phone"],
+      "form": {
+        "addTitle": "Add student",
+        "editTitle": "Edit student",
+        "fields": [
+          { "key": "roll_no", "label": "Roll number", "required": true },
+          { "key": "name", "label": "Full name", "required": true },
+          { "key": "email", "label": "Email", "type": "email" },
+          { "key": "phone", "label": "Phone" },
+          { "key": "class_name", "label": "Class" },
+          { "key": "dob", "label": "Date of birth", "type": "date" }
+        ]
+      },
+      "emptyState": "No students found. Add your first student."
+    },
+    "attendance": {
+      "title": "Attendance",
+      "dateField": "Date",
+      "columns": ["Roll", "Name", "Status"],
+      "statuses": ["Present", "Late", "Absent"],
+      "emptyState": "No students yet. Add students first."
+    },
+    "grades": {
+      "title": "Grades",
+      "studentFilter": "Filter by student",
+      "columns": ["Student", "Subject", "Exam", "Marks", "Score"],
+      "form": {
+        "title": "Add grade",
+        "fields": [
+          { "key": "student_id", "label": "Student" },
+          { "key": "subject_id", "label": "Subject" },
+          { "key": "exam", "label": "Exam", "required": true },
+          { "key": "marks", "label": "Marks", "type": "number", "required": true },
+          { "key": "max_marks", "label": "Out of", "type": "number", "default": 100 }
+        ]
+      },
+      "emptyState": "No grades recorded yet."
+    }
+  },
+  "theme": {
+    "style": "glassmorphism",
+    "decorations": "ambient-orbs",
+    "responsive": true
+  }
+}
