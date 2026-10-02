@@ -48,23 +48,6 @@ def login():
     session["uid"] = u["id"]; session["user"] = u["username"]
     return jsonify(user=u["username"])
 
-@app.post("/api/register")
-def register():
-    d = request.json or {}
-    username = (d.get("username") or "").strip()
-    password = d.get("password") or ""
-    if len(username) < 3 or len(username) > 50:
-        return jsonify(error="Username must be 3–50 characters"), 400
-    if len(password) < 6:
-        return jsonify(error="Password must be at least 6 characters"), 400
-    try:
-        q("INSERT INTO users(username,password_hash) VALUES(%s,%s)", (username, generate_password_hash(password)), write=True)
-    except Exception as e:
-        if getattr(e, "errno", 0) == 1062:
-            return jsonify(error="That username is already registered"), 409
-        return jsonify(error="Unable to create account"), 400
-    return jsonify(ok=True)
-
 @app.post("/api/logout")
 def logout(): session.clear(); return jsonify(ok=True)
 
